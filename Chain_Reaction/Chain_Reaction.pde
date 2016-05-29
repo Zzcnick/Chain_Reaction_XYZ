@@ -17,7 +17,22 @@ void setup() {
 // Draw - Runs Program
 // ====================================================================
 void draw() {
+  clear();
   for (Ball b : _balls) {
-    b.update(); 
+    b.update();
+    
+    for (Ball other : _balls) {
+      if (b != other && 
+          b._state == 0 &&
+          other._state > 0 &&
+          b.detect(other)) { //detect all balls other than self
+        b._state = 1;
+      }
+    }
+    
   }
+}
+
+void mousePressed() {
+  _balls.add( new Ball(0,0,mouseX,mouseY,1) );
 }
