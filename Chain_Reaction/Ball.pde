@@ -6,7 +6,7 @@ class Ball {
   // ====================================================================
   float _dx, _dy, _x, _y, _size;
   int _state;
-  int[] _color; 
+  color c; 
  
   // State Variable: (Subject to Change)
   // -1 - Dead
@@ -23,11 +23,12 @@ class Ball {
     _dx = randSpeed * cos(randAngle);
     _dy = randSpeed * sin(randAngle);
     _state = 0;
-    _x = random(600); //random float [0, 600)
-    _y = random(600);
-    _size = 30;
-    _color = new int[3]; // TO UPDATE
+    _x = random(width); //random float [0, 600)
+    _y = random(height);
+    _size = 25;
+    c = color(int(random(255)),int(random(255)),int(random(255)));
   }
+  
   Ball(float angle, float speed) {
     this();
     _dx = speed * cos(angle);
@@ -74,7 +75,7 @@ class Ball {
    * postcond: size is updated according to the state of the ball */
    void updateSize() {
      if (_state == 1) { //expanding
-       if (_size >= 150) //start shrinking at size=200
+       if (_size >= 150) //start shrinking at size=150
          _state = 2; 
        else _size++;
      }
@@ -106,19 +107,6 @@ class Ball {
    }
    
   // ====================================================================
-  // State Changing
-  // ====================================================================
-  /* updateState() - Updates state of the ball
-   * precond: 
-   * postcond: state reflects the state of the ball */
-   void updateState() {
-     if (_state > 0)
-       updateSize();
-     if (_size <= 0)
-       _state = -1;
-   }
-   
-  // ====================================================================
   // Updating Image - Prints Ball onto canvas
   // ====================================================================
   void update() {
@@ -129,7 +117,8 @@ class Ball {
         tick();
       }
       else updateSize(); //state should be 1 or 2
-      
+      fill(c);
+      noStroke();
       ellipse (_x, _y, _size, _size);
     }
     
