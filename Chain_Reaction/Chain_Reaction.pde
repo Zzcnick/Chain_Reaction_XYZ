@@ -1,6 +1,7 @@
 /** Chain Reaction **/
 
 ArrayList<Ball> _balls = new ArrayList<Ball>();
+boolean pressed = false;
 
 // ====================================================================
 // Setup - Initialization of the World
@@ -34,5 +35,8 @@ void draw() {
 }
 
 void mousePressed() {
-  _balls.add( new Ball(0,0,mouseX,mouseY,1) );
+  if (!pressed) {
+    _balls.add( new Ball(0,0,mouseX,mouseY,1) );
+    pressed = true;
+  }
 }
